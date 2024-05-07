@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "dG+OrEeuvUQMVrh17wr8LZfIohXR9opA5W3DqljbMmCUTRYbARbRsuaBIMqp7hu3HAFnszS/l63HLHCoK0HV+g==",
+  "success": true,
+  "projectFilePath": "/home/xenu/RiderProjects/FileSyncServer/FileSyncServer.csproj",
+  "expectedPackageFiles": [
+    "/home/xenu/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.4/microsoft.aspnetcore.app.ref.8.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}
