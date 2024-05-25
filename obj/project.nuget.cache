@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "dG+OrEeuvUQMVrh17wr8LZfIohXR9opA5W3DqljbMmCUTRYbARbRsuaBIMqp7hu3HAFnszS/l63HLHCoK0HV+g==",
+  "dgSpecHash": "Tg1/Ndc/ZhjYnjCH+9ZyA+PW3/psNWRWFVWl9iE02LaN+Cj1PMVghnVWxcUtxWnQ2xMC6m8S/tvQ2R5Cj3h8Xw==",
   "success": true,
   "projectFilePath": "/home/xenu/RiderProjects/FileSyncServer/FileSyncServer.csproj",
   "expectedPackageFiles": [
+    "/home/xenu/.nuget/packages/protobuf-net.core/3.2.30/protobuf-net.core.3.2.30.nupkg.sha512",
+    "/home/xenu/.nuget/packages/system.collections.immutable/7.0.0/system.collections.immutable.7.0.0.nupkg.sha512",
     "/home/xenu/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.4/microsoft.aspnetcore.app.ref.8.0.4.nupkg.sha512"
   ],
   "logs": []

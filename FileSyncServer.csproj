@@ -13,4 +13,8 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="protobuf-net.Core" Version="3.2.30" />
+    </ItemGroup>
+
 </Project>

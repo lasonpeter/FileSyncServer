@@ -22,15 +22,15 @@ class Program
             ProtocolType.Tcp);
         int x = 0;
         await client.ConnectAsync(ipEndPoint);
-        byte[] pingPacket = new Packet(1).ToBytes();
+        byte[] pingPacket = new Packet(PacketType.Ping).ToBytes();
         var socketPing = new Thread( (o =>
         {
             while(true){
-                Console.WriteLine("PING");
+                Console.WriteLine("PING");  
                 client.SendAsync(pingPacket);
                 Thread.Sleep(5000);
             }
-        }));
+        })); 
         socketPing.Start();
         Thread sendThread = new Thread(o =>
         {
@@ -44,7 +44,6 @@ class Program
                 Console.WriteLine(
                     $"Socket client sent message: \"{Encoding.UTF8.GetString(packet.Payload, 0, packet.MessageLength)}\"");
                 Thread.Sleep(500);
-                
             }
         });
         sendThread.Start();
