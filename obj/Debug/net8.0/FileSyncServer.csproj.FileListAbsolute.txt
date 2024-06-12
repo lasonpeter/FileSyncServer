@@ -18,3 +18,7 @@
 /home/xenu/RiderProjects/FileSyncServer/obj/Debug/net8.0/ref/FileSyncServer.dll
 /home/xenu/RiderProjects/FileSyncServer/obj/Debug/net8.0/FileSyncServer.sourcelink.json
 /home/xenu/RiderProjects/FileSyncServer/bin/Debug/net8.0/protobuf-net.Core.dll
+/home/xenu/RiderProjects/FileSyncServer/bin/Debug/net8.0/protobuf-net.dll
+/home/xenu/RiderProjects/FileSyncServer/bin/Debug/net8.0/Serilog.dll
+/home/xenu/RiderProjects/FileSyncServer/bin/Debug/net8.0/Serilog.Sinks.File.dll
+/home/xenu/RiderProjects/FileSyncServer/bin/Debug/net8.0/Newtonsoft.Json.dll

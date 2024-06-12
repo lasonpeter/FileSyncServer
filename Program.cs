@@ -1,53 +1,99 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using System.Text;
+using FileSyncServer.Config;
+using Newtonsoft.Json;
+using Serilog;
 using TransferLib;
 
 namespace FileSyncServer;
 
-class Program
+internal class Program
 {
-    static async Task Main(string[] args)
+    private static async Task<int> Main(string[] args)
     {
-        IPHostEntry ipHostInfo = await Dns.GetHostEntryAsync("localhost");
-        IPAddress ipAddress = ipHostInfo.AddressList[0];
-        var hostName = Dns.GetHostName();
-        IPHostEntry localhost = await Dns.GetHostEntryAsync(hostName);
-        // This is the IP address of the local machine
-        IPAddress localIpAddress = localhost.AddressList[0];
-        IPEndPoint ipEndPoint = new(ipAddress, 11_000);
-        using Socket client = new(
-            ipEndPoint.AddressFamily, 
-            SocketType.Stream, 
-            ProtocolType.Tcp);
-        int x = 0;
-        await client.ConnectAsync(ipEndPoint);
-        byte[] pingPacket = new Packet(PacketType.Ping).ToBytes();
-        var socketPing = new Thread( (o =>
+        Console.WriteLine("STARTING UP");
+        JsonSerializer jsonSerializer = new JsonSerializer();
+        Settings settings;
+        try
         {
-            while(true){
-                Console.WriteLine("PING");  
-                client.SendAsync(pingPacket);
-                Thread.Sleep(5000);
+            settings = jsonSerializer.Deserialize<Settings>(new JsonTextReader(File.OpenText("config.json")));
+            if (settings is null)
+            {
+                Log.Error("Couldn't load config");
+                return -1;
             }
-        })); 
-        socketPing.Start();
-        Thread sendThread = new Thread(o =>
+        }
+        catch (Exception e)
         {
-            byte[] we = "Hello"u8.ToArray();
-            Packet packet = new Packet();
+            Log.Error("Couldn't load config");
+            Console.WriteLine(e);
+            throw;
+        }
+        
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .WriteTo.File(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LogFiles", "Log.txt"),
+                rollingInterval: RollingInterval.Month,
+                outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}")
+            .CreateLogger();
+
+        IPHostEntry ipHostInfo;
+        IPAddress ipAddress;
+        try
+        {
+            ipHostInfo = await Dns.GetHostEntryAsync(settings.HostName);
+            ipAddress = ipHostInfo.AddressList[0]; 
+
+        }
+        catch (Exception e)
+        {
+            try
+            {
+                ipAddress =IPAddress.Parse(settings.HostName);
+                Console.WriteLine("Trying parsing");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                Log.Error("WRONG HOST IP");
+                throw;
+            }
+        }
+        // This is the IP address of the local machine
+        IPEndPoint ipEndPoint = new(ipAddress, settings.Port);
+        var tcpListener = new TcpListener(ipEndPoint);
+        tcpListener.Start();
+        Socket client = tcpListener.AcceptSocket();
+        //INITIATE NEW CLIENT CONNECTION
+        Console.WriteLine("CONNECTED :D");
+        var x = 0;
+        var pingPacket = new Packet(PacketType.Ping).ToBytes();
+        var socketPing = new Thread(o =>
+        {
             while (true)
             {
-                // slow down
-                packet.Compose(we, 0);
-                //_ = await client.SendAsync(packet.ToBytes(), SocketFlags.None);
-                Console.WriteLine(
-                    $"Socket client sent message: \"{Encoding.UTF8.GetString(packet.Payload, 0, packet.MessageLength)}\"");
-                Thread.Sleep(500);
+                //Console.WriteLine("SENT PING");  
+                try
+                {
+                    client.SendAsync(pingPacket);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                Thread.Sleep(5000);
             }
         });
-        sendThread.Start();
+        socketPing.Start();
+        var packetDistributor = new PacketDistributor();
+//        packetDistributor.OnPing += (sender, eventArgs) => { Console.WriteLine("WE");}; 
+        var fileSyncController = new FileSyncController(client);
+        packetDistributor.OnFileSyncInit += fileSyncController.FileSyncInit;
+        packetDistributor.OnFileSyncData += fileSyncController.FileSyncData;
+        packetDistributor.OnFileSyncCheckHash += fileSyncController.FileSyncCheckHash;
+        packetDistributor.OnFileSyncFinish += fileSyncController.FileSyncFinish;
+        packetDistributor.AwaitPacket(client,ipAddress,settings.Port,tcpListener);
         socketPing.Join();
-
+        return 0;
     }
 }
