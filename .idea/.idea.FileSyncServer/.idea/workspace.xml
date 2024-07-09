@@ -11,28 +11,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Config/Settings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FileSyncController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PacketDistributor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SFile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
+    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="Changes, lots of changes !">
+      <change afterPath="$PROJECT_DIR$/Startup/ClientConnection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/Settings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Config/Settings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSyncController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FileSyncController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FileSyncServer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FileSyncServer.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FileSyncServer.sln" beforeDir="false" afterPath="$PROJECT_DIR$/FileSyncServer.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PacketDistributor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PacketDistributor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SFile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.AssemblyInfoInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/apphost" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/apphost" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/ref/FileSyncServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/ref/FileSyncServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net8.0/refint/FileSyncServer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net8.0/refint/FileSyncServer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/FileSyncServer.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/FileSyncServer.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/FileSyncServer.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/FileSyncServer.csproj.nuget.g.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
@@ -74,6 +73,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e5119dcdce44411eaf4b4915377339f627f0ecccdcccf54a273b28d928dcb/Serializer.Deserialize.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/bin/Debug/net8.0/FileSyncServer.deps.json" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/obj/Debug/net8.0/FileSyncServer.AssemblyInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/Packet.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/ProtoBuf.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -90,8 +90,14 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;.NET Project.FileSyncServer.executor&quot;: &quot;Run&quot;,
+    &quot;Publish to custom server.Server.executor&quot;: &quot;Run&quot;,
     &quot;Publish to custom server.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/xenu/RiderProjects/TransferLib/bin/Release/net8.0/TransferLib.dll&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -110,15 +116,16 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected=".NET Project.FileSyncServer">
+  <component name="RunManager" selected="Publish to custom server.Server">
     <configuration name="FileSyncServer" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/bin/Debug/net8.0/FileSyncServer" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/bin/Release/net8.0/FileSyncServer" />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin/Debug/net8.0" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin/Release/net8.0" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="RUNTIME_TYPE" value="coreclr" />
       <option name="PROJECT_PATH" value="$PROJECT_DIR$/FileSyncServer.csproj" />
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
@@ -129,8 +136,8 @@
         <option name="Build" />
       </method>
     </configuration>
-    <configuration name="Unnamed" type="DotNetPublishAndUpload" factoryName="Publish to custom server">
-      <riderPublish configuration="Release" include_native_libs_for_self_extract="true" platform="Any CPU" produce_single_file="true" ready_to_run="true" runtime="linux-arm" self_contained="true" server_id="61eebbf1-00e2-4972-b7db-7e5fdf6fb686" serverName="FileSyncServer" target_framework="net8.0" uuid_high="-298504428733182588" uuid_low="-4622856819697308107" />
+    <configuration name="Server" type="DotNetPublishAndUpload" factoryName="Publish to custom server">
+      <riderPublish configuration="Release" platform="Any CPU" produce_single_file="true" ready_to_run="true" runtime="linux-arm" self_contained="true" server_id="61eebbf1-00e2-4972-b7db-7e5fdf6fb686" serverName="FileSyncServer" target_framework="net8.0" uuid_high="-298504428733182588" uuid_low="-4622856819697308107" />
       <method v="2" />
     </configuration>
     <configuration name="BlazorApp1: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
@@ -236,7 +243,7 @@
       <item itemvalue=".NET Project.FileSyncServer" />
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       <item itemvalue="Docker.Dockerfile" />
-      <item itemvalue="Publish to custom server.Unnamed" />
+      <item itemvalue="Publish to custom server.Server" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -266,6 +273,15 @@
       <workItem from="1717325235060" duration="13073000" />
       <workItem from="1718031407503" duration="12483000" />
       <workItem from="1718116069122" duration="752000" />
+      <workItem from="1718199338111" duration="11736000" />
+      <workItem from="1718912923033" duration="476000" />
+      <workItem from="1718913443410" duration="1509000" />
+      <workItem from="1720119229243" duration="9505000" />
+      <workItem from="1720193508581" duration="7198000" />
+      <workItem from="1720201435691" duration="4548000" />
+      <workItem from="1720338260210" duration="5708000" />
+      <workItem from="1720350008391" duration="6111000" />
+      <workItem from="1720548330167" duration="10125000" />
     </task>
     <task id="LOCAL-00001" summary="Started creating PacketDistributor">
       <option name="closed" value="true" />
@@ -275,7 +291,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716653080759</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Changes, lots of changes !">
+      <option name="closed" value="true" />
+      <created>1718199817120</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1718199817120</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,6 +310,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Started creating PacketDistributor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started creating PacketDistributor" />
+    <MESSAGE value="Changes, lots of changes !" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes, lots of changes !" />
   </component>
 </project>

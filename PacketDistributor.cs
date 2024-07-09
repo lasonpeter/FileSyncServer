@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
+using Serilog;
 using TransferLib;
 
 namespace FileSyncServer;
@@ -14,7 +15,7 @@ internal class PacketDistributor
     public event EventHandler<PacketEventArgs>? OnFileSyncFinish;
 
 
-    public void AwaitPacket(Socket socket, IPAddress ipAddress,int port, TcpListener tcpListener)
+    public void AwaitPacket(Socket socket)
     {
         new Thread(o =>
         {
@@ -30,68 +31,83 @@ internal class PacketDistributor
                 var dataLeft = size;
                 while (total < size)
                 {
-                    var recv = socket.Receive(buffer, total, dataLeft, SocketFlags.None);
-                    if (recv == 0)
+                    try
                     {
+                        int recv = socket.Receive(buffer, total, dataLeft, SocketFlags.None);
+                        //Console.WriteLine(recv);
+
+                        /*if (recv == 0)
+                        {
+                            break;
+                        }*/
+
+                        total += recv;
+                        dataLeft -= recv;
+                        //Console.WriteLine(total);}
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Client abruptly disconnected ");
+                        Log.Warning("Client abruptly disconnected ");
                         break;
                     }
-                    total += recv;
-                    dataLeft -= recv;
-                    Console.WriteLine(total);
                 }
 
                 packet.DecodePacket(buffer);
-                if (packet.PacketType is PacketType.Error)
-                {
-                    try
+                    if (packet.PacketType is PacketType.Error)
                     {
-                        socket.Disconnect(true);
-                        try
+                        Console.WriteLine("CONNECTION LOST !!!!!!!!!!!!!");
+                        break;
+                        /*try
                         {
-                            socket=tcpListener.AcceptSocket();
-                            Console.WriteLine("ACCEPTED");
+                            socket.Disconnect(true);
+                            try
+                            {
+                                socket=tcpListener.AcceptSocket();
+                                Console.WriteLine("ACCEPTED");
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e);
-                        }
+                        }*/
                     }
-                    catch (Exception e)
+
+                    //Console.WriteLine("PacketType:"+packet.PacketType);
+                    switch (packet.PacketType)
                     {
-                        Console.WriteLine(e);
-                    }
-                }
-                Console.WriteLine("PacketType:"+packet.PacketType);
-                switch (packet.PacketType)
-                {
-                    case PacketType.Ping:
-                        OnPingPacket(new PacketEventArgs(packet));
-                        break;
-                    case PacketType.Data:
-                        OnDataPacket(new PacketEventArgs(packet));
-                        break;
-                    case PacketType.FileSyncInit:
-                        OnFileSyncInitPacket(new PacketEventArgs(packet));
-                        break;
-                    case PacketType.FileSyncData:
-                    {
+                        case PacketType.Ping:
+                            OnPingPacket(new PacketEventArgs(packet));
+                            break;
+                        case PacketType.Data:
+                            OnDataPacket(new PacketEventArgs(packet));
+                            break;
+                        case PacketType.FileSyncInit:
+                            OnFileSyncInitPacket(new PacketEventArgs(packet));
+                            break;
+                        case PacketType.FileSyncData:
                         {
-                            OnFileSyncDataPacket(new PacketEventArgs(packet));
-                            x++;
+                            {
+                                OnFileSyncDataPacket(new PacketEventArgs(packet));
+                                x++;
+                            }
+                            //Console.WriteLine("DATA");
                         }
-                        //Console.WriteLine("DATA");
+                            break;
+                        case PacketType.FileSyncCheckHash:
+                            OnFileSyncCheckHashPacket(new PacketEventArgs(packet));
+                            break;
+                        case PacketType.FileSyncFinish:
+                        {
+                            OnFileSyncFinishPacket(new PacketEventArgs(packet));
+                        }
+                            break;
                     }
-                        break;
-                    case PacketType.FileSyncCheckHash:
-                        OnFileSyncCheckHashPacket(new PacketEventArgs(packet));
-                        break;
-                    case PacketType.FileSyncFinish:
-                    {
-                        OnFileSyncFinishPacket(new PacketEventArgs(packet));
-                    }
-                        break;
                 }
-            }
         }).Start();
     }
 
@@ -133,7 +149,6 @@ internal class PacketDistributor
     protected virtual void OnFileSyncFinishPacket(PacketEventArgs e)
     {
         var raiseEvent = OnFileSyncFinish;
-
         if (raiseEvent != null) raiseEvent.Invoke(this, e);
     }
 }

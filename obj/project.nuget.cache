@@ -1,16 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "s1Iga7A0VQ7vzK5qgoBnOn8Lfh1PNheji6GVTM4kX+0HsKNlGd313GfIAPTMZP49X14PpF1bqd06xYkCg4ZT/g==",
+  "dgSpecHash": "MoWascx1cUJQhaUsrZntp8ZMqH1j9URXvPC6pS60A/8RPOaDNvtsa3gahD9K00KDPQTeYjiMZuQSVPjPwFCwjg==",
   "success": true,
   "projectFilePath": "/home/xenu/RiderProjects/FileSyncServer/FileSyncServer.csproj",
   "expectedPackageFiles": [
+    "/home/xenu/.nuget/packages/communitytoolkit.diagnostics/8.0.0/communitytoolkit.diagnostics.8.0.0.nupkg.sha512",
+    "/home/xenu/.nuget/packages/microsoft.net.illink.tasks/8.0.6/microsoft.net.illink.tasks.8.0.6.nupkg.sha512",
     "/home/xenu/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/home/xenu/.nuget/packages/protobuf-net/3.2.30/protobuf-net.3.2.30.nupkg.sha512",
     "/home/xenu/.nuget/packages/protobuf-net.core/3.2.30/protobuf-net.core.3.2.30.nupkg.sha512",
     "/home/xenu/.nuget/packages/serilog/3.1.1/serilog.3.1.1.nupkg.sha512",
     "/home/xenu/.nuget/packages/serilog.sinks.file/5.0.0/serilog.sinks.file.5.0.0.nupkg.sha512",
     "/home/xenu/.nuget/packages/system.collections.immutable/7.0.0/system.collections.immutable.7.0.0.nupkg.sha512",
-    "/home/xenu/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.6/microsoft.aspnetcore.app.ref.8.0.6.nupkg.sha512"
+    "/home/xenu/.nuget/packages/xxhash3.net/2.1.0/xxhash3.net.2.1.0.nupkg.sha512",
+    "/home/xenu/.nuget/packages/microsoft.netcore.app.runtime.linux-arm/8.0.6/microsoft.netcore.app.runtime.linux-arm.8.0.6.nupkg.sha512",
+    "/home/xenu/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.6/microsoft.aspnetcore.app.ref.8.0.6.nupkg.sha512",
+    "/home/xenu/.nuget/packages/microsoft.aspnetcore.app.runtime.linux-arm/8.0.6/microsoft.aspnetcore.app.runtime.linux-arm.8.0.6.nupkg.sha512",
+    "/home/xenu/.nuget/packages/microsoft.netcore.app.crossgen2.linux-x64/8.0.6/microsoft.netcore.app.crossgen2.linux-x64.8.0.6.nupkg.sha512",
+    "/home/xenu/.nuget/packages/microsoft.netcore.app.host.linux-arm/8.0.6/microsoft.netcore.app.host.linux-arm.8.0.6.nupkg.sha512"
   ],
   "logs": []
 }

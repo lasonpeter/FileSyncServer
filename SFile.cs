@@ -1,7 +1,9 @@
 using System.Net.Sockets;
+using FileSyncServer.Config;
 using ProtoBuf;
 using Serilog;
 using TransferLib;
+using XXHash3NET;
 
 namespace FileSyncServer;
 
@@ -12,6 +14,10 @@ public class SFile
 
     private readonly Socket _socket;
 
+    public string GetFilePath()
+    {
+        return _fsInit.FilePath + "/" + _fsInit.FileName;
+    }
     public SFile(Socket socket, FSInit fsInit)
     {
         _socket = socket;
@@ -20,6 +26,8 @@ public class SFile
 
     public void FileSyncInit()
     {
+        //Left here for legacy thingies :D 
+        /*
         #if DEBUG
             Directory.CreateDirectory("/home/xenu/FileSyncStorage" + _fsInit.FilePath);
             _fileStream = new FileStream("/home/xenu/FileSyncStorage" + _fsInit.FilePath + "/" + _fsInit.FileName,
@@ -29,16 +37,31 @@ public class SFile
                     Access = FileAccess.Write,
                     PreallocationSize = _fsInit.FileSize
                 });
+            Console.WriteLine("/home/xenu/FileSyncStorage" + _fsInit.FilePath + "/" + _fsInit.FileName);
         #else
          Directory.CreateDirectory("/home/server/FileSyncStorage" + _fsInit.FilePath);
-            _fileStream = new FileStream("/home/server/htopFileSyncStorage" + _fsInit.FilePath + "/" + _fsInit.FileName,
+            _fileStream = new FileStream("/home/server/FileSyncStorage" + _fsInit.FilePath + "/" + _fsInit.FileName,
                 new FileStreamOptions
                 {
                     Mode = FileMode.Create,
                     Access = FileAccess.Write,
                     PreallocationSize = _fsInit.FileSize
                 });
-        #endif
+            Console.WriteLine("/home/server/FileSyncStorage" + _fsInit.FilePath + "/" + _fsInit.FileName);
+        #endif*/
+        //TODO: Settings.Instance.WorkingDirectory + _fsInit.FilePath may create error if FilePath is going to be relative in the future !
+        
+        
+        Directory.CreateDirectory(Settings.Instance.WorkingDirectory + _fsInit.FilePath);
+        _fileStream = new FileStream($"{Settings.Instance.WorkingDirectory}{_fsInit.FilePath}/{_fsInit.FileName}",
+            new FileStreamOptions
+            {
+                Mode = FileMode.Create,
+                Access = FileAccess.Write,
+                PreallocationSize = _fsInit.FileSize
+            });
+        Console.WriteLine($"{Settings.Instance.WorkingDirectory}{_fsInit.FilePath}/{_fsInit.FileName}");
+        
         
         var fsInitResponse = new FSInitResponse
         {
@@ -47,8 +70,11 @@ public class SFile
         };
         var memoryStream = new MemoryStream();
         Serializer.Serialize(memoryStream, fsInitResponse);
-        _socket.Send(new Packet(memoryStream.ToArray(), PacketType.FileSyncInitResponse, (int)memoryStream.Length)
-            .ToBytes());
+        Console.WriteLine("SENT");
+        lock(_socket){
+            _socket.Send(new Packet(memoryStream.ToArray(), PacketType.FileSyncInitResponse, (int)memoryStream.Length)
+                .ToBytes());
+        }
     }
 
     public void WriteData(byte[] data, int length)
@@ -67,18 +93,37 @@ public class SFile
         }
     }
 
-    public void CheckHash(byte fileId)
+    public void CheckHash(FSCheckHash _fsFile)
     {
-        //Console.WriteLine("CHECK");
+        Console.WriteLine("CHECK");
         _fileStream.Flush();
         _fileStream.Close();
+        ulong hash64;
         using var memoryStream = new MemoryStream();
-        Serializer.Serialize(memoryStream, new FSCheckHashResponse
         {
-            FileId = fileId,
-            IsCorrect = true
-        });
-        _socket.Send(new Packet(memoryStream.ToArray(), PacketType.FileSyncCheckHashResponse, (int)memoryStream.Length)
-            .ToBytes());
+            hash64 = XXHash3.Hash64(_fileStream);
+            Console.WriteLine(hash64);
+        }
+        if (_fsFile.Hash == hash64)
+        {
+            Serializer.Serialize(memoryStream, new FSCheckHashResponse
+            {
+                FileId = _fsFile.FileId,
+                IsCorrect = true
+            });
+        }
+        else
+        {
+            Serializer.Serialize(memoryStream, new FSCheckHashResponse
+            {
+                FileId = _fsFile.FileId,
+                IsCorrect = false
+            });
+        }
+        lock(_socket){
+            _socket.Send(new Packet(memoryStream.ToArray(), PacketType.FileSyncCheckHashResponse,
+                    (int)memoryStream.Length)
+                .ToBytes());
+        }
     }
 }
