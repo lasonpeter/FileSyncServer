@@ -64,10 +64,15 @@ public class FileSyncController
     {
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
         var fsFinish = Serializer.Deserialize<FSFinish>(memoryStream);
-        SFile sFile;
-        fileLookup.TryGetValue(fsFinish.FileId, out sFile);
-        Log.Information($"Synchronized {sFile?.GetFilePath()}");
+        fileLookup.TryGetValue(fsFinish.FileId, out var sFile);
+        if (sFile != null)
+        {
+            sFile.FinishSync();
+            Log.Information($"Synchronized {sFile?.GetFilePath()}");
+        }
+
         fileLookup.Remove(fsFinish.FileId);
+        
         //Console.WriteLine("Synchronized");
     }
 }

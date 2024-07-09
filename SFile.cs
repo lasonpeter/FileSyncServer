@@ -57,7 +57,7 @@ public class SFile
             new FileStreamOptions
             {
                 Mode = FileMode.Create,
-                Access = FileAccess.Write,
+                Access = FileAccess.ReadWrite,
                 PreallocationSize = _fsInit.FileSize
             });
         Console.WriteLine($"{Settings.Instance.WorkingDirectory}{_fsInit.FilePath}/{_fsInit.FileName}");
@@ -97,12 +97,12 @@ public class SFile
     {
         Console.WriteLine("CHECK");
         _fileStream.Flush();
-        _fileStream.Close();
         ulong hash64;
         using var memoryStream = new MemoryStream();
         {
             hash64 = XXHash3.Hash64(_fileStream);
             Console.WriteLine(hash64);
+            _fileStream.Close();
         }
         if (_fsFile.Hash == hash64)
         {
@@ -125,5 +125,13 @@ public class SFile
                     (int)memoryStream.Length)
                 .ToBytes());
         }
+    }
+
+    public void FinishSync()
+    {
+        FileInfo fileInfo = new FileInfo($"{Settings.Instance.WorkingDirectory}{_fsInit.FilePath}/{_fsInit.FileName}");
+        fileInfo.LastAccessTime = _fsInit.LastAccessTime;
+        fileInfo.LastWriteTime = _fsInit.LastWriteTime;
+        fileInfo.CreationTime = _fsInit.CreationTime;
     }
 }

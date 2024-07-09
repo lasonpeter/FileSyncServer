@@ -1,9 +1,11 @@
-﻿using System.Net;
+﻿using System.Data.SQLite;
+using System.Net;
 using System.Net.Sockets;
 using FileSyncServer.Config;
 using FileSyncServer.Startup;
 using Newtonsoft.Json;
 using Serilog;
+using Microsoft.Data.Sqlite;
 
 namespace FileSyncServer;
 
@@ -13,6 +15,22 @@ internal class Program
     {
         try
         {
+            try
+            {
+
+                await using (var connection = new SqliteConnection($"Data Source={"db.sqlite"}"))
+                {
+                    connection.Open();
+                    await using var command = new SqliteCommand("", connection);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
+
             //INITIALIZING LOGGING
             Console.WriteLine("STARTING UP");
             Log.Logger = new LoggerConfiguration()
