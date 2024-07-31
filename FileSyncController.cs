@@ -1,5 +1,6 @@
 using System.Net.Sockets;
 using ProtoBuf;
+using RocksDbSharp;
 using Serilog;
 using TransferLib;
 
@@ -9,18 +10,20 @@ public class FileSyncController
 {
     private  Socket _socket;
     private  Dictionary<byte, SFile?> fileLookup = new();
-
-    public FileSyncController(Socket socket)
+    private RocksDb _rocksDb;
+    public FileSyncController(Socket socket,RocksDb rocksDb)
     {
+        _rocksDb = rocksDb;
         _socket = socket;
     }
 
     public void FileSyncInit(object? sender, PacketEventArgs eventArgs)
     {
+        
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
         var fsInit = Serializer.Deserialize<FSInit>(memoryStream);
         Console.WriteLine($"Initiating sync: {fsInit.FileId}, {fsInit.FileSize}, {fsInit.FilePath} /{fsInit.FileName}");
-        fileLookup.Add(fsInit.FileId, new SFile(_socket, fsInit));
+        fileLookup.Add(fsInit.FileId, new SFile(_socket, fsInit,_rocksDb));
         SFile? sFile;
         if (fileLookup.TryGetValue(fsInit.FileId, out sFile))
             sFile.FileSyncInit();

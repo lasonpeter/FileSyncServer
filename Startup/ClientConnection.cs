@@ -1,4 +1,5 @@
 using System.Net.Sockets;
+using RocksDbSharp;
 using Serilog;
 using TransferLib;
 
@@ -7,9 +8,10 @@ namespace FileSyncServer.Startup;
 public class ClientConnection 
 {
     private Socket _socket;
-
-    public ClientConnection(Socket socket)
+    private RocksDb _rocksDb;
+    public ClientConnection(Socket socket, RocksDb rocksDb)
     {
+        _rocksDb = rocksDb;
         _socket = socket;
         Thread thread = new Thread(ConnectionThread);
         thread.Start(_socket);
@@ -20,15 +22,23 @@ public class ClientConnection
         Socket client = (Socket)o!;
         Console.WriteLine("CONNECTED :D");
         
-        var packetDistributor = new PacketDistributor();
+        var packetDistributor = new PacketDistributor(client);
 //        packetDistributor.OnPing += (sender, eventArgs) => { Console.WriteLine("WE");}; 
-        var fileSyncController = new FileSyncController(client);
+        var fileSyncController = new FileSyncController(client,_rocksDb);
         packetDistributor.OnFileSyncInit += fileSyncController.FileSyncInit;
         packetDistributor.OnFileSyncData += fileSyncController.FileSyncData;
         packetDistributor.OnFileSyncCheckHash += fileSyncController.FileSyncCheckHash;
         packetDistributor.OnFileSyncFinish += fileSyncController.FileSyncFinish;
-        packetDistributor.AwaitPacket(client);
-        Ping(client);
+        try
+        {
+            packetDistributor.VersionHandshake();
+            packetDistributor.AwaitPacket();
+            Ping(client);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
         Console.WriteLine("DEAD");
     }
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FileSyncServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78a788a0039a9fdc964222549bac892c8cb994a0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b325e218862996367174b0dd152135deaac9167")]
 [assembly: System.Reflection.AssemblyProductAttribute("FileSyncServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FileSyncServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

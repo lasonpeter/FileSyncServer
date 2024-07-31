@@ -1,6 +1,8 @@
 using System.Net.Sockets;
+using System.Text;
 using FileSyncServer.Config;
 using ProtoBuf;
+using RocksDbSharp;
 using Serilog;
 using TransferLib;
 using XXHash3NET;
@@ -11,46 +13,23 @@ public class SFile
 {
     private FileStream _fileStream;
     private readonly FSInit _fsInit;
-
+    private RocksDb _rocksDb;
     private readonly Socket _socket;
 
     public string GetFilePath()
     {
         return _fsInit.FilePath + "/" + _fsInit.FileName;
     }
-    public SFile(Socket socket, FSInit fsInit)
+    public SFile(Socket socket, FSInit fsInit, RocksDb rocksDb)
     {
+        _rocksDb = rocksDb;
         _socket = socket;
         _fsInit = fsInit;
     }
 
     public void FileSyncInit()
-    {
-        //Left here for legacy thingies :D 
-        /*
-        #if DEBUG
-            Directory.CreateDirectory("/home/xenu/FileSyncStorage" + _fsInit.FilePath);
-            _fileStream = new FileStream("/home/xenu/FileSyncStorage" + _fsInit.FilePath + "/" + _fsInit.FileName,
-                new FileStreamOptions
-                {
-                    Mode = FileMode.Create,
-                    Access = FileAccess.Write,
-                    PreallocationSize = _fsInit.FileSize
-                });
-            Console.WriteLine("/home/xenu/FileSyncStorage" + _fsInit.FilePath + "/" + _fsInit.FileName);
-        #else
-         Directory.CreateDirectory("/home/server/FileSyncStorage" + _fsInit.FilePath);
-            _fileStream = new FileStream("/home/server/FileSyncStorage" + _fsInit.FilePath + "/" + _fsInit.FileName,
-                new FileStreamOptions
-                {
-                    Mode = FileMode.Create,
-                    Access = FileAccess.Write,
-                    PreallocationSize = _fsInit.FileSize
-                });
-            Console.WriteLine("/home/server/FileSyncStorage" + _fsInit.FilePath + "/" + _fsInit.FileName);
-        #endif*/
+    { 
         //TODO: Settings.Instance.WorkingDirectory + _fsInit.FilePath may create error if FilePath is going to be relative in the future !
-        
         
         Directory.CreateDirectory(Settings.Instance.WorkingDirectory + _fsInit.FilePath);
         _fileStream = new FileStream($"{Settings.Instance.WorkingDirectory}{_fsInit.FilePath}/{_fsInit.FileName}",
@@ -61,8 +40,7 @@ public class SFile
                 PreallocationSize = _fsInit.FileSize
             });
         Console.WriteLine($"{Settings.Instance.WorkingDirectory}{_fsInit.FilePath}/{_fsInit.FileName}");
-        
-        
+        _rocksDb.Put(new Guid().ToByteArray(), Encoding.UTF8.GetBytes(_fsInit.FilePath+"/"+_fsInit.FileName));
         var fsInitResponse = new FSInitResponse
         {
             FileId = _fsInit.FileId,

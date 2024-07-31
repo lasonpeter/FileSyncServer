@@ -1,5 +1,7 @@
 using System.Net;
 using System.Net.Sockets;
+using FileSyncServer.Config;
+using ProtoBuf;
 using Serilog;
 using TransferLib;
 
@@ -14,8 +16,14 @@ internal class PacketDistributor
     public event EventHandler<PacketEventArgs>? OnFileSyncCheckHash;
     public event EventHandler<PacketEventArgs>? OnFileSyncFinish;
 
+    private Socket _socket;
 
-    public void AwaitPacket(Socket socket)
+    public PacketDistributor(Socket socket)
+    {
+        _socket = socket;
+    }
+
+    public void AwaitPacket()
     {
         new Thread(o =>
         {
@@ -33,17 +41,9 @@ internal class PacketDistributor
                 {
                     try
                     {
-                        int recv = socket.Receive(buffer, total, dataLeft, SocketFlags.None);
-                        //Console.WriteLine(recv);
-
-                        /*if (recv == 0)
-                        {
-                            break;
-                        }*/
-
+                        int recv = _socket.Receive(buffer, total, dataLeft, SocketFlags.None);
                         total += recv;
                         dataLeft -= recv;
-                        //Console.WriteLine(total);}
                     }
                     catch (Exception e)
                     {
@@ -54,63 +54,141 @@ internal class PacketDistributor
                 }
 
                 packet.DecodePacket(buffer);
-                    if (packet.PacketType is PacketType.Error)
-                    {
-                        Console.WriteLine("CONNECTION LOST !!!!!!!!!!!!!");
-                        break;
-                        /*try
-                        {
-                            socket.Disconnect(true);
-                            try
-                            {
-                                socket=tcpListener.AcceptSocket();
-                                Console.WriteLine("ACCEPTED");
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine(e);
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                        }*/
-                    }
-
-                    //Console.WriteLine("PacketType:"+packet.PacketType);
-                    switch (packet.PacketType)
-                    {
-                        case PacketType.Ping:
-                            OnPingPacket(new PacketEventArgs(packet));
-                            break;
-                        case PacketType.Data:
-                            OnDataPacket(new PacketEventArgs(packet));
-                            break;
-                        case PacketType.FileSyncInit:
-                            OnFileSyncInitPacket(new PacketEventArgs(packet));
-                            break;
-                        case PacketType.FileSyncData:
-                        {
-                            {
-                                OnFileSyncDataPacket(new PacketEventArgs(packet));
-                                x++;
-                            }
-                            //Console.WriteLine("DATA");
-                        }
-                            break;
-                        case PacketType.FileSyncCheckHash:
-                            OnFileSyncCheckHashPacket(new PacketEventArgs(packet));
-                            break;
-                        case PacketType.FileSyncFinish:
-                        {
-                            OnFileSyncFinishPacket(new PacketEventArgs(packet));
-                        }
-                            break;
-                    }
+                if (packet.PacketType is PacketType.Error)
+                {
+                    Console.WriteLine("CONNECTION LOST !!!!!!!!!!!!!");
                 }
+
+                //Console.WriteLine("PacketType:"+packet.PacketType);
+                switch (packet.PacketType)
+                {
+                    case PacketType.Ping:
+                        OnPingPacket(new PacketEventArgs(packet));
+                        break;
+                    case PacketType.Data:
+                        OnDataPacket(new PacketEventArgs(packet));
+                        break;
+                    case PacketType.FileSyncInit:
+                        OnFileSyncInitPacket(new PacketEventArgs(packet));
+                        break;
+                    case PacketType.FileSyncData:
+                    {
+                        {
+                            OnFileSyncDataPacket(new PacketEventArgs(packet));
+                            x++;
+                        }
+                        //Console.WriteLine("DATA");
+                    }
+                        break;
+                    case PacketType.FileSyncCheckHash:
+                        OnFileSyncCheckHashPacket(new PacketEventArgs(packet));
+                        break;
+                    case PacketType.FileSyncFinish:
+                    {
+                        OnFileSyncFinishPacket(new PacketEventArgs(packet));
+                    }
+                        break;
+                }
+            }
         }).Start();
     }
 
+    public void VersionHandshake()
+    {
+        var packet = new Packet();
+        var buffer = new byte[4_099];
+        var size = 4099;
+        var total = 0;
+        var dataLeft = size;
+        while (total < size)
+        {
+            try
+            {
+                int recv = _socket.Receive(buffer, total, dataLeft, SocketFlags.None);
+                //Console.WriteLine(recv);
+
+                /*if (recv == 0)
+                {
+                    break;
+                }*/
+
+                total += recv;
+                dataLeft -= recv;
+                //Console.WriteLine(total);}
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.WriteLine("Client abruptly disconnected ");
+                Log.Warning("Client abruptly disconnected ");
+                break;
+            }
+        }
+Console.WriteLine("RECEIVED HANDSHAKE");
+        try
+        {
+            packet.DecodePacket(buffer);
+            if (packet.PacketType is PacketType.VersionHandshake)
+            {
+                MemoryStream memoryStream = new MemoryStream(packet.Payload, 0, packet.MessageLength);
+                VersionHandshake versionHandshake =
+                    Serializer.Deserialize<VersionHandshake>(memoryStream);
+                Console.WriteLine($"Client {versionHandshake.Version} | {Settings.Instance.Version}");
+                if (versionHandshake.Version == Settings.Instance.Version)
+                {
+                    VersionHandshakeResponse versionHandshakeResponse = new VersionHandshakeResponse()
+                    {
+                        ApplicationVersionCompatibilityLevel = ApplicationVersionCompatibilityLevel.FullyCompatible,
+                        Version = Settings.Instance.Version
+                    };
+                    using MemoryStream stream = new MemoryStream();
+                    Serializer.Serialize(stream, versionHandshakeResponse);
+                    _socket.Send(new Packet(stream.ToArray(), PacketType.VersionHandshakeResponse).ToBytes());
+                }
+                else
+                {
+                    VersionHandshakeResponse versionHandshakeResponse = new VersionHandshakeResponse()
+                    {
+                        ApplicationVersionCompatibilityLevel = ApplicationVersionCompatibilityLevel.Incompatible,
+                        Version = Settings.Instance.Version
+                    };
+                    using MemoryStream stream = new MemoryStream();
+                    Serializer.Serialize(stream, versionHandshake);
+                    _socket.Send(new Packet(stream.ToArray(), PacketType.VersionHandshakeResponse).ToBytes());
+                    throw (new Exception("Incompatible version"));
+                }
+
+                /*
+                case ApplicationVersionCompatibilityLevel.FullyCompatible:
+                    {
+                        Console.WriteLine("Fully compatible");
+                        Log.Information("Fully compatible !");
+                    }
+                    case ApplicationVersionCompatibilityLevel.PartiallyCompatible:
+                    {
+                        Console.WriteLine(
+                            $"Partially compatible | client:{Settings.Instance.Version} server:{packet.Version}");
+                        Log.Warning(
+                            $"Partially compatible | client:{Settings.Instance.Version} server:{packet.Version}");
+                    }
+                    case ApplicationVersionCompatibilityLevel.Incompatible:
+                    {
+                        Console.WriteLine(
+                            $"Incompatible version | client:{Settings.Instance.Version} server:{packet.Version}");
+                        Log.Warning(
+                            $"Incompatible version | client:{Settings.Instance.Version} server:{packet.Version}");
+                        throw (new Exception(
+                            $"Incompatible version | client:{Settings.Instance.Version} server:{packet.Version}"));
+                    }
+                }*/
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
     protected virtual void OnPingPacket(PacketEventArgs e)
     {
         var raiseEvent = OnPing;
