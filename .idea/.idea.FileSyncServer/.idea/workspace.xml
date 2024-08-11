@@ -11,10 +11,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="Added .gitignore">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,7 +76,6 @@
     &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/xenu/RiderProjects/TransferLib/bin/Release/net8.0/TransferLib.dll&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -274,7 +270,7 @@
       <workItem from="1722447114417" duration="485000" />
       <workItem from="1722537909684" duration="3104000" />
       <workItem from="1722589386818" duration="2851000" />
-      <workItem from="1723370774558" duration="8061000" />
+      <workItem from="1723370774558" duration="8177000" />
     </task>
     <task id="LOCAL-00001" summary="Started creating PacketDistributor">
       <option name="closed" value="true" />
@@ -332,7 +328,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723375608369</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="README.md update">
+      <option name="closed" value="true" />
+      <created>1723387488591</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1723387488591</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -360,6 +364,7 @@
     <MESSAGE value="Added docs" />
     <MESSAGE value="CI" />
     <MESSAGE value="Added .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added .gitignore" />
+    <MESSAGE value="README.md update" />
+    <option name="LAST_COMMIT_MESSAGE" value="README.md update" />
   </component>
 </project>
