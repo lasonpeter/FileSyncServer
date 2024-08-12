@@ -25,4 +25,10 @@
         <PackageReference Include="XXHash3.NET" Version="2.1.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="config.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

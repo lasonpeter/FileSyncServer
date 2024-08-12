@@ -56,7 +56,8 @@ internal class PacketDistributor
                 packet.DecodePacket(buffer);
                 if (packet.PacketType is PacketType.Error)
                 {
-                    Console.WriteLine("CONNECTION LOST !!!!!!!!!!!!!");
+                    Console.WriteLine("CONNECTION LOST !!!!!!!!!!!!!"); 
+                    break;
                 }
 
                 //Console.WriteLine("PacketType:"+packet.PacketType);
