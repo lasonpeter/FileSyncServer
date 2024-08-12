@@ -32,7 +32,7 @@ public class SFile
         //TODO: Settings.Instance.WorkingDirectory + _fsInit.FilePath may create error if FilePath is going to be relative in the future !
 
         Console.WriteLine();
-        Console.WriteLine($"WORKING ON FUUID: {new Guid(_fsInit.FuuId).ToString()}");
+        Console.WriteLine($"WORKING ON FUUID: {new Guid(_fsInit.FuuId.ToArray()).ToString()}");
         Directory.CreateDirectory(Settings.Instance.WorkingDirectory + _fsInit.FilePath);
         _fileStream = new FileStream($"{Settings.Instance.WorkingDirectory}{_fsInit.FilePath}/{_fsInit.FileName}",
             new FileStreamOptions
@@ -43,17 +43,17 @@ public class SFile
             });
         try
         {
-            byte[] arr = new byte[_fsInit.FuuId.Length + 1];
+            byte[] arr = new byte[_fsInit.FuuId.Count + 1];
             arr[0] = 0;
-            if (!_rocksDb.HasKey(_fsInit.FuuId))
+            if (!_rocksDb.HasKey(_fsInit.FuuId.ToArray()))
             {
                 _fsInit.FuuId.CopyTo(arr, 1);
-                Console.WriteLine($"CREATING NEW FILE WITH FUUID:{new Guid(_fsInit.FuuId).ToString()}");
-                _rocksDb.Put(_fsInit.FuuId, new Byte []{0});
+                Console.WriteLine($"CREATING NEW FILE WITH FUUID:{new Guid(_fsInit.FuuId.ToArray()).ToString()}");
+                _rocksDb.Put(_fsInit.FuuId.ToArray(), new Byte []{0});
             }
             _rocksDb.Put(arr, Encoding.UTF8.GetBytes($"{_fsInit.FilePath}/{_fsInit.FileName}"));
-            var serverHash =_rocksDb.Get(_fsInit.FuuId);
-            Console.WriteLine($"Hash of file with FUUID: {new Guid(_fsInit.FuuId).ToString()} is: {BitConverter.ToUInt64(serverHash)}");
+            var serverHash =_rocksDb.Get(_fsInit.FuuId.ToArray());
+            Console.WriteLine($"Hash of file with FUUID: {new Guid(_fsInit.FuuId.ToArray()).ToString()} is: {BitConverter.ToUInt64(serverHash)}");
         }
         catch (Exception e)
         {

@@ -11,14 +11,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="">
+    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="Non working FUUID transfer">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FileSyncController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FileSyncController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FileSyncServer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FileSyncServer.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PacketDistributor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PacketDistributor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SFile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/docs/Protocol.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/docs/Protocol.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +53,8 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/SFile.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/bin/Debug/net8.0/FileSyncServer.deps.json" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/config.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/Packet.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/ProtoBuf.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -281,7 +277,7 @@
       <workItem from="1723370774558" duration="8177000" />
       <workItem from="1723387577688" duration="1143000" />
       <workItem from="1723397953933" duration="3438000" />
-      <workItem from="1723482649734" duration="8883000" />
+      <workItem from="1723482649734" duration="9667000" />
     </task>
     <task id="LOCAL-00001" summary="Started creating PacketDistributor">
       <option name="closed" value="true" />
@@ -355,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723387634509</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Non working FUUID transfer">
+      <option name="closed" value="true" />
+      <created>1723491807285</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1723491807285</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,6 +389,7 @@
     <MESSAGE value="Added .gitignore" />
     <MESSAGE value="README.md update" />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.FileSyncServer/.idea/workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.FileSyncServer/.idea/workspace.xml" />
+    <MESSAGE value="Non working FUUID transfer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Non working FUUID transfer" />
   </component>
 </project>

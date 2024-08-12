@@ -21,13 +21,13 @@ public class FileSyncController
     {
         
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
-        var fsInit = Serializer.Deserialize<FsInit>(memoryStream);
-        Console.WriteLine($"THIS:{fsInit.FuuId.Length}");
+        FsInit fsInit = Serializer.Deserialize<FsInit>(memoryStream);
+        Console.WriteLine($"THIS:{fsInit.FuuId.Count}");
         foreach (var f in fsInit.FuuId)
         {
             Console.Write(f.ToString());
         }
-        Console.WriteLine($"Initiating sync: {fsInit.FileId}, {fsInit.FileSize}, {fsInit.FilePath} /{fsInit.FileName} , {new Guid(fsInit.FuuId).ToString()}");
+        Console.WriteLine($"Initiating sync: {fsInit.FileId}, {fsInit.FileSize}, {fsInit.FilePath} /{fsInit.FileName} , {new Guid(fsInit.FuuId.ToArray()).ToString()}");
         fileLookup.Add(fsInit.FileId, new SFile(_socket, fsInit,_rocksDb));
         SFile? sFile;
         if (fileLookup.TryGetValue(fsInit.FileId, out sFile))
