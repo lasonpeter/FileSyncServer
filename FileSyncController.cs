@@ -19,15 +19,9 @@ public class FileSyncController
 
     public void FileSyncInit(object? sender, PacketEventArgs eventArgs)
     {
-        
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
         FsInit fsInit = Serializer.Deserialize<FsInit>(memoryStream);
-        Console.WriteLine($"THIS:{fsInit.FuuId.Count}");
-        foreach (var f in fsInit.FuuId)
-        {
-            Console.Write(f.ToString());
-        }
-        Console.WriteLine($"Initiating sync: {fsInit.FileId}, {fsInit.FileSize}, {fsInit.FilePath} /{fsInit.FileName} , {new Guid(fsInit.FuuId.ToArray()).ToString()}");
+        Console.WriteLine($"Initiating sync: {fsInit.FileId}, {fsInit.FileSize}, {fsInit.FilePath} /{fsInit.FileName} , {fsInit.FuuId.ToString()}");
         fileLookup.Add(fsInit.FileId, new SFile(_socket, fsInit,_rocksDb));
         SFile? sFile;
         if (fileLookup.TryGetValue(fsInit.FileId, out sFile))
@@ -59,10 +53,10 @@ public class FileSyncController
         if (fileLookup.TryGetValue(fsData.FileId, out sFile)) sFile.WriteData(fsData.FileData, fsData.Length);
     }
 
-    public void FileSyncCheckHash(object? sender, PacketEventArgs eventArgs)
+    public void FileSyncUploadCheckHash(object? sender, PacketEventArgs eventArgs)
     {
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
-        var fsData = Serializer.Deserialize<FSCheckHash>(memoryStream);
+        var fsData = Serializer.Deserialize<FSUploadCheckHash>(memoryStream);
         SFile? sFile;
         if (fileLookup.TryGetValue(fsData.FileId, out sFile)) 
             sFile.CheckHash(fsData);
@@ -82,5 +76,14 @@ public class FileSyncController
         fileLookup.Remove(fsFinish.FileId);
         
         //Console.WriteLine("Synchronized");
+    }
+
+    public void FileSyncHashCheck(object? sender, PacketEventArgs eventArgs)
+    {
+        var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
+        var fsHashCheck = Serializer.Deserialize<FSHashCheck>(memoryStream);
+        List<Guid> changedFiles = new List<Guid>();
+        
+
     }
 }

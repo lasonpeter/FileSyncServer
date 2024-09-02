@@ -13,8 +13,10 @@ internal class PacketDistributor
     public event EventHandler<PacketEventArgs>? OnData;
     public event EventHandler<PacketEventArgs>? OnFileSyncInit;
     public event EventHandler<PacketEventArgs>? OnFileSyncData;
-    public event EventHandler<PacketEventArgs>? OnFileSyncCheckHash;
+    public event EventHandler<PacketEventArgs>? OnFileSyncUploadCheckHash;
     public event EventHandler<PacketEventArgs>? OnFileSyncFinish;
+
+    public event EventHandler<PacketEventArgs>? OnFileSyncHashCheck;
 
     private Socket _socket;
 
@@ -81,12 +83,17 @@ internal class PacketDistributor
                         //Console.WriteLine("DATA");
                     }
                         break;
-                    case PacketType.FileSyncCheckHash:
+                    case PacketType.FileSyncUploadCheckHash:
                         OnFileSyncCheckHashPacket(new PacketEventArgs(packet));
                         break;
                     case PacketType.FileSyncFinish:
                     {
                         OnFileSyncFinishPacket(new PacketEventArgs(packet));
+                    }
+                        break;
+                    case PacketType.FileSyncHashCheck:
+                    {
+                        OnFileSyncHashCheckPacket(new PacketEventArgs(packet));
                     }
                         break;
                 }
@@ -220,7 +227,7 @@ Console.WriteLine("RECEIVED HANDSHAKE");
 
     protected virtual void OnFileSyncCheckHashPacket(PacketEventArgs e)
     {
-        var raiseEvent = OnFileSyncCheckHash;
+        var raiseEvent = OnFileSyncUploadCheckHash;
 
         if (raiseEvent != null) raiseEvent.Invoke(this, e);
     }
@@ -228,6 +235,11 @@ Console.WriteLine("RECEIVED HANDSHAKE");
     protected virtual void OnFileSyncFinishPacket(PacketEventArgs e)
     {
         var raiseEvent = OnFileSyncFinish;
+        if (raiseEvent != null) raiseEvent.Invoke(this, e);
+    }
+    protected virtual void OnFileSyncHashCheckPacket(PacketEventArgs e)
+    {
+        var raiseEvent = OnFileSyncHashCheck;
         if (raiseEvent != null) raiseEvent.Invoke(this, e);
     }
 }
