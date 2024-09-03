@@ -51,7 +51,7 @@ public class SFile
                 Console.WriteLine($"CREATING NEW FILE WITH FUUID:{_fsInit.FuuId.ToString()}");
                 _rocksDb.Put(_fsInit.FuuId.ToByteArray(), BitConverter.GetBytes((ulong)0));
             }
-            _rocksDb.Put(arr, Encoding.UTF8.GetBytes($"{_fsInit.FilePath}/{_fsInit.FileName}"));
+            _rocksDb.Put(arr, Encoding.UTF8.GetBytes( $"{_fsInit.FilePath}/{_fsInit.FileName}"));
             var serverHash =_rocksDb.Get(_fsInit.FuuId.ToByteArray()); //THE HECK IS THIS ??? (ok this points out to the file hash on server side
             Console.WriteLine($"Hash of file with FUUID:" + 
                               $" {_fsInit.FuuId.ToString()}"+

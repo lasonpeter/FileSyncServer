@@ -83,7 +83,20 @@ public class FileSyncController
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
         var fsHashCheck = Serializer.Deserialize<FSHashCheck>(memoryStream);
         List<Guid> changedFiles = new List<Guid>();
-        
+        foreach (var pair in fsHashCheck.HashCheckPairs)
+        {
+            var serverHash = BitConverter.ToUInt64(_rocksDb.Get(pair.FuuId.ToByteArray()));
+            if (serverHash != pair.Hash)
+            {
+                changedFiles.Add(pair.FuuId);
+            }
+        }
 
+        MemoryStream memoryStreamExport = new MemoryStream();
+        Serializer.Serialize(memoryStreamExport,new FSHashCheckResponse()
+        {
+            Changed = changedFiles
+        });
+        _socket.SendAsync(new Packet(memoryStreamExport.ToArray(), PacketType.FileSyncHashCheckResponse, (int)memoryStreamExport.Length).ToBytes());
     }
 }
