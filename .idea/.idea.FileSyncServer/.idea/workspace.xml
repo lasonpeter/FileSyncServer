@@ -11,10 +11,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="Started implementing folder scanning when file exists">
+    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FileSyncController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FileSyncController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SFile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PacketDistributor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PacketDistributor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +49,9 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/FileSyncController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/SFile.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/Startup/ClientConnection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/bin/Debug/net8.0/FileSyncServer.deps.json" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/HashCheckPair.cs" root0="SKIP_HIGHLIGHTING" />
@@ -281,7 +283,8 @@
       <workItem from="1723675361526" duration="1810000" />
       <workItem from="1725103862836" duration="17418000" />
       <workItem from="1725273804530" duration="1920000" />
-      <workItem from="1725280673863" duration="19119000" />
+      <workItem from="1725280673863" duration="19657000" />
+      <workItem from="1725395398636" duration="4322000" />
     </task>
     <task id="LOCAL-00001" summary="Started creating PacketDistributor">
       <option name="closed" value="true" />
@@ -379,7 +382,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725305205163</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Implemented logic for FileSyncHashCheck function">
+      <option name="closed" value="true" />
+      <created>1725393893950</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725393893950</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -424,6 +435,7 @@
     <MESSAGE value="Non working FUUID transfer" />
     <MESSAGE value="byte[] to List&lt;byte&gt; fix" />
     <MESSAGE value="Started implementing folder scanning when file exists" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started implementing folder scanning when file exists" />
+    <MESSAGE value="Implemented logic for FileSyncHashCheck function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented logic for FileSyncHashCheck function" />
   </component>
 </project>

@@ -11,11 +11,25 @@ internal class PacketDistributor
 {
     public event EventHandler<PacketEventArgs>? OnPing;
     public event EventHandler<PacketEventArgs>? OnData;
+    /// <summary>
+    /// Occurs when the FSInit packet is received
+    /// </summary>
     public event EventHandler<PacketEventArgs>? OnFileSyncInit;
+    /// <summary>
+    /// Occurs when the FSData packet is received
+    /// </summary>
     public event EventHandler<PacketEventArgs>? OnFileSyncData;
+    /// <summary>
+    /// Occurs when the FSUploadCheckHash packet is received 
+    /// </summary>
     public event EventHandler<PacketEventArgs>? OnFileSyncUploadCheckHash;
+    /// <summary>
+    /// Occurs when the FSFinish packet is received 
+    /// </summary>
     public event EventHandler<PacketEventArgs>? OnFileSyncFinish;
-
+    /// <summary>
+    /// Occurs when the FSHashCheck packet is received
+    /// </summary>
     public event EventHandler<PacketEventArgs>? OnFileSyncHashCheck;
 
     private Socket _socket;
@@ -25,6 +39,9 @@ internal class PacketDistributor
         _socket = socket;
     }
 
+    /// <summary>
+    /// Indefinitely waits for a packet from the client 
+    /// </summary>
     public void AwaitPacket()
     {
         new Thread(o =>
@@ -101,6 +118,10 @@ internal class PacketDistributor
         }).Start();
     }
 
+    /// <summary>
+    /// Performs the version handshake
+    /// </summary>
+    /// <exception cref="Exception">Throws exception if the version is incompatible</exception>
     public void VersionHandshake()
     {
         var packet = new Packet();
@@ -113,16 +134,8 @@ internal class PacketDistributor
             try
             {
                 int recv = _socket.Receive(buffer, total, dataLeft, SocketFlags.None);
-                //Console.WriteLine(recv);
-
-                /*if (recv == 0)
-                {
-                    break;
-                }*/
-
                 total += recv;
                 dataLeft -= recv;
-                //Console.WriteLine(total);}
             }
             catch (Exception e)
             {
@@ -131,8 +144,8 @@ internal class PacketDistributor
                 Log.Warning("Client abruptly disconnected ");
                 break;
             }
-        }
-Console.WriteLine("RECEIVED HANDSHAKE");
+        } 
+        Console.WriteLine("RECEIVED HANDSHAKE");
         try
         {
             packet.DecodePacket(buffer);
