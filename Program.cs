@@ -16,6 +16,7 @@ internal class Program
     {
         try
         {
+            Console.WriteLine($"Running in: {AppDomain.CurrentDomain.BaseDirectory}");
             //INITIALIZING LOGGING
             Console.WriteLine("STARTING UP");
             Log.Logger = new LoggerConfiguration()
@@ -84,10 +85,10 @@ internal class Program
                     throw;
                 }
             }
-            Console.WriteLine("CONNECTION EXPOSED");
             IPEndPoint ipEndPoint = new(ipAddress, settings.Port);
             var tcpListener = new TcpListener(ipEndPoint);
             tcpListener.Start();
+            Console.WriteLine($"CONNECTION EXPOSED: {ipEndPoint.Address}:{ipEndPoint.Port}");
             //Waiting for a new client
             while (true)
             {

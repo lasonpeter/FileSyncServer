@@ -1,5 +1,5 @@
 {
   "port": 11000,
-  "host_name": "localhost",
+  "host_name": "127.0.0.1",
   "working_directory": "/home/xenu/FileSync/"
 }

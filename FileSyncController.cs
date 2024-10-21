@@ -26,7 +26,7 @@ public class FileSyncController
     public void FileSyncInit(object? sender, PacketEventArgs eventArgs)
     {
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
-        FsInit fsInit = Serializer.Deserialize<FsInit>(memoryStream);
+        FsInit fsInit = Serializer.Deserialize<TransferLib.FsInit>(memoryStream);
         Console.WriteLine($"Initiating sync: {fsInit.FileId}, {fsInit.FileSize}, {fsInit.FilePath} /{fsInit.FileName} , {fsInit.FuuId.ToString()}");
         fileLookup.Add(fsInit.FileId, new SFile(_socket, fsInit,_rocksDb));
         SFile? sFile;

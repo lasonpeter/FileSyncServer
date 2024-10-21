@@ -12,9 +12,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FileSyncController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FileSyncController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PacketDistributor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PacketDistributor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileSyncServer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FileSyncServer.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +53,9 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/FileSyncController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/PacketDistributor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/PacketDistributor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/SFile.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/Startup/ClientConnection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/bin/Debug/net8.0/FileSyncServer.deps.json" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/HashCheckPair.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/Packet.cs" root0="SKIP_HIGHLIGHTING" />
@@ -69,39 +72,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.FileSyncServer.executor&quot;: &quot;Run&quot;,
-    &quot;Publish to custom server.Server.executor&quot;: &quot;Run&quot;,
-    &quot;Publish to custom server.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;FolderScanning&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/xenu/RiderProjects/TransferLib/bin/Release/net8.0/TransferLib.dll&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.FileSyncServer.executor": "Run",
+    "Docker.Docker Image.executor": "Run",
+    "Docker.Dockerfile.executor": "Run",
+    "Publish to custom server.Server.executor": "Run",
+    "Publish to custom server.Unnamed.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
+    "WebServerToolWindowPanel.toolwindow.show.date": "false",
+    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
+    "WebServerToolWindowPanel.toolwindow.show.size": "false",
+    "git-widget-placeholder": "FolderScanning",
+    "last_opened_file_path": "/home/xenu/RiderProjects/TransferLib/bin/Release/net8.0/TransferLib.dll",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "service.view.auto.scroll.to.source": "true",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ],
-    &quot;rider.external.source.directories&quot;: [
-      &quot;/home/xenu/.config/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
-      &quot;/home/xenu/.config/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
-      &quot;/home/xenu/.local/share/Symbols/src&quot;
+    "rider.external.source.directories": [
+      "/home/xenu/.config/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
+      "/home/xenu/.config/JetBrains/Rider2024.1/resharper-host/SourcesCache",
+      "/home/xenu/.local/share/Symbols/src"
     ]
   }
-}</component>
-  <component name="RunManager" selected=".NET Project.FileSyncServer">
+}]]></component>
+  <component name="RunManager" selected="Docker.Dockerfile">
     <configuration name="FileSyncServer" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/bin/Release/net8.0/FileSyncServer" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -185,12 +191,33 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="Docker Image" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="filesyncserver:dev" />
+          <option name="containerName" value="" />
+          <option name="publishAllPorts" value="true" />
+          <option name="commandLineOptions" value="--network host" />
+          <option name="showCommandPreview" value="true" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
           <option name="imageTag" value="filesyncserver" />
           <option name="containerName" value="filesyncserver" />
-          <option name="contextFolderPath" value="$PROJECT_DIR$" />
+          <option name="envVars">
+            <list>
+              <DockerEnvVarImpl>
+                <option name="name" value="DOTNET_ENVIRONMENT" />
+                <option name="value" value="Production" />
+              </DockerEnvVarImpl>
+            </list>
+          </option>
+          <option name="publishAllPorts" value="true" />
+          <option name="commandLineOptions" value="--network host" />
           <option name="sourceFilePath" value="Dockerfile" />
         </settings>
       </deployment>
@@ -202,6 +229,10 @@
         <settings />
       </deployment>
       <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-image" temporary="true">
+      <deployment type="docker-image" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
@@ -228,8 +259,14 @@
       <item itemvalue=".NET Project.FileSyncServer" />
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       <item itemvalue="Docker.Dockerfile" />
+      <item itemvalue="Docker.Docker Image" />
       <item itemvalue="Publish to custom server.Server" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.Docker Image" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -284,7 +321,16 @@
       <workItem from="1725103862836" duration="17418000" />
       <workItem from="1725273804530" duration="1920000" />
       <workItem from="1725280673863" duration="19657000" />
-      <workItem from="1725395398636" duration="4322000" />
+      <workItem from="1725395398636" duration="5000000" />
+      <workItem from="1727857882536" duration="4049000" />
+      <workItem from="1727969567545" duration="2704000" />
+      <workItem from="1727998279514" duration="6901000" />
+      <workItem from="1728374048099" duration="2903000" />
+      <workItem from="1728377215550" duration="5711000" />
+      <workItem from="1729012322186" duration="12375000" />
+      <workItem from="1729162467418" duration="12428000" />
+      <workItem from="1729261641349" duration="84000" />
+      <workItem from="1729538373960" duration="4455000" />
     </task>
     <task id="LOCAL-00001" summary="Started creating PacketDistributor">
       <option name="closed" value="true" />
@@ -390,7 +436,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725393893950</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Project documentation">
+      <option name="closed" value="true" />
+      <created>1725520518876</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1725520518876</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -436,6 +490,7 @@
     <MESSAGE value="byte[] to List&lt;byte&gt; fix" />
     <MESSAGE value="Started implementing folder scanning when file exists" />
     <MESSAGE value="Implemented logic for FileSyncHashCheck function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented logic for FileSyncHashCheck function" />
+    <MESSAGE value="Project documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Project documentation" />
   </component>
 </project>
