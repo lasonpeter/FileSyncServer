@@ -26,6 +26,7 @@ internal class Program
                     outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}")
                 .CreateLogger();
             Console.WriteLine("LOADING CONFIG");
+            Log.Information("LOADING CONFIG");
             //LOADING CONFIG
             JsonSerializer jsonSerializer = new JsonSerializer();
             Settings settings;
@@ -44,6 +45,8 @@ internal class Program
                 Console.WriteLine(e);
                 throw;
             }
+            Log.Information("CONFIG LOADED SUCCESSFULLY");
+            Log.Information("LOADING ROCKSDB");
             RocksDb rocksDb;
             //INITIALIZING DB
             try
@@ -58,6 +61,7 @@ internal class Program
                 Console.WriteLine(e);
                 throw;
             }
+            Log.Information("ROCKSDB LOADED SUCCESSFULLY");
             Console.WriteLine("CONFIG LOADED");
             //Establishing listener
             IPHostEntry ipHostInfo;
@@ -89,13 +93,15 @@ internal class Program
             var tcpListener = new TcpListener(ipEndPoint);
             tcpListener.Start();
             Console.WriteLine($"CONNECTION EXPOSED: {ipEndPoint.Address}:{ipEndPoint.Port}");
+            Log.Information("CONNECTION EXPOSED: {address}:{port}",ipEndPoint.Address,ipEndPoint.Port);
             //Waiting for a new client
             while (true)
             {
                 Socket client =  tcpListener.AcceptSocket();
                 //INITIATE NEW CLIENT CONNECTION
                 ClientConnection newClientConnection = new ClientConnection(client,rocksDb);
-                Console.WriteLine("CLIENT CONNECTED");
+                Console.WriteLine($"CLIENT CONNECTED: {((IPEndPoint)client.LocalEndPoint).Address.ToString()}");
+                Log.Information("CLIENT CONNECTED {addrfamily}", ((IPEndPoint)client.LocalEndPoint).Address.ToString());
             }
 
             return 0;
@@ -103,7 +109,7 @@ internal class Program
         catch (Exception e)
         {
             Log.Error(e.ToString());
-            return 1;
+            return 100;
         }
         
 
