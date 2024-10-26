@@ -11,11 +11,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="Documentation">
-      <change afterPath="$PROJECT_DIR$/docs/docs/Config.md" afterDir="false" />
+    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/Settings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Config/Settings.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,9 +49,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/FileSyncController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/PacketDistributor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/PacketDistributor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/48a5384bb36e47f0ac76fb9cb0c19d7e2a00/90/f1030c60/VersionHandshake.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/bin/Debug/net8.0/FileSyncServer.deps.json" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/HashCheckPair.cs" root0="SKIP_HIGHLIGHTING" />
@@ -404,7 +400,10 @@
       <workItem from="1729261641349" duration="84000" />
       <workItem from="1729538373960" duration="4455000" />
       <workItem from="1729779243987" duration="2299000" />
-      <workItem from="1729781707268" duration="1541000" />
+      <workItem from="1729781707268" duration="7193000" />
+      <workItem from="1729884986415" duration="642000" />
+      <workItem from="1729942122850" duration="1492000" />
+      <workItem from="1729952117356" duration="2306000" />
     </task>
     <task id="LOCAL-00001" summary="Started creating PacketDistributor">
       <option name="closed" value="true" />
@@ -518,7 +517,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725520518876</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Improved logging, and fixed Dockerfile">
+      <option name="closed" value="true" />
+      <created>1729788373444</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1729788373444</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -565,6 +572,7 @@
     <MESSAGE value="Started implementing folder scanning when file exists" />
     <MESSAGE value="Implemented logic for FileSyncHashCheck function" />
     <MESSAGE value="Project documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project documentation" />
+    <MESSAGE value="Improved logging, and fixed Dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved logging, and fixed Dockerfile" />
   </component>
 </project>
