@@ -30,6 +30,6 @@ public class Settings
     [JsonProperty("port")] public int Port { get; set; } = 11000;
     [JsonProperty("host_name")] public string HostName { get; set; } = "localhost";
     [JsonProperty("working_directory")] public string WorkingDirectory;
-    public readonly ushort Version = 1;
+    public readonly ushort Version = 2;
 
 }

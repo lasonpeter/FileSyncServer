@@ -5,24 +5,28 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <ContainerImageName>filesyncserver</ContainerImageName>
+        <ContainerImageTag>0.1.0</ContainerImageTag>
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="TransferLib">
-            <HintPath>..\TransferLib\bin\Release\net8.0\TransferLib.dll</HintPath>
-        </Reference>
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.7"/>
+        <PackageReference Include="Microsoft.NET.Build.Containers" Version="8.0.403" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="protobuf-net" Version="3.2.30"/>
+        <PackageReference Include="RocksDB" Version="9.4.0.50294"/>
+        <PackageReference Include="Serilog" Version="3.1.1"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0"/>
+        <PackageReference Include="System.Data.SQLite" Version="1.0.118"/>
+        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118"/>
+        <PackageReference Include="TransferLib" Version="0.0.3"/>
+        <PackageReference Include="XXHash3.NET" Version="2.1.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.7" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="protobuf-net" Version="3.2.30"/>
-        <PackageReference Include="RocksDB" Version="9.4.0.50294" />
-        <PackageReference Include="Serilog" Version="3.1.1"/>
-        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0"/>
-        <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
-        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
-        <PackageReference Include="XXHash3.NET" Version="2.1.0" />
+        <None Update="config.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

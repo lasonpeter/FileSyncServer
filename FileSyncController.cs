@@ -17,12 +17,17 @@ public class FileSyncController
         _socket = socket;
     }
 
+    /// <summary>
+    /// Called upon receiving FSInit packet
+    /// Initiates the file synchronization process 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="eventArgs"></param>
     public void FileSyncInit(object? sender, PacketEventArgs eventArgs)
     {
-        
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
-        var fsInit = Serializer.Deserialize<FSInit>(memoryStream);
-        Console.WriteLine($"Initiating sync: {fsInit.FileId}, {fsInit.FileSize}, {fsInit.FilePath} /{fsInit.FileName}");
+        FsInit fsInit = Serializer.Deserialize<TransferLib.FsInit>(memoryStream);
+        Console.WriteLine($"Initiating sync: {fsInit.FileId}, {fsInit.FileSize}, {fsInit.FilePath} /{fsInit.FileName} , {fsInit.FuuId.ToString()}");
         fileLookup.Add(fsInit.FileId, new SFile(_socket, fsInit,_rocksDb));
         SFile? sFile;
         if (fileLookup.TryGetValue(fsInit.FileId, out sFile))
@@ -30,6 +35,12 @@ public class FileSyncController
         //Console.WriteLine("INIT");
     }
 
+    /// <summary>
+    /// Called upon receiving FSData
+    /// Sends the received data to appropriate SFile
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="eventArgs"></param>
     public void FileSyncData(object? sender, PacketEventArgs eventArgs)
     {
         /*foreach (var VARIABLE in eventArgs.Packet.Payload)
@@ -51,18 +62,31 @@ public class FileSyncController
         }
 
         SFile? sFile;
-        if (fileLookup.TryGetValue(fsData.FileId, out sFile)) sFile.WriteData(fsData.FileData, fsData.Length);
+        if (fileLookup.TryGetValue(fsData.FileId, out sFile)) {
+            sFile.WriteData(fsData.FileData, fsData.Length);
+        }
     }
 
-    public void FileSyncCheckHash(object? sender, PacketEventArgs eventArgs)
+    /// <summary>
+    /// Called upon receiving FSUploadChechHash packet
+    /// Tells specified SFile to check if hash is the same
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="eventArgs"></param>
+    public void FileSyncUploadCheckHash(object? sender, PacketEventArgs eventArgs)
     {
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
-        var fsData = Serializer.Deserialize<FSCheckHash>(memoryStream);
+        var fsData = Serializer.Deserialize<FSUploadCheckHash>(memoryStream);
         SFile? sFile;
         if (fileLookup.TryGetValue(fsData.FileId, out sFile)) 
             sFile.CheckHash(fsData);
     }
 
+    /// <summary>
+    /// Finalizes the file synchronization by disposing of all SFile related data
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="eventArgs"></param>
     public void FileSyncFinish(object? sender, PacketEventArgs eventArgs)
     {
         var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
@@ -77,5 +101,34 @@ public class FileSyncController
         fileLookup.Remove(fsFinish.FileId);
         
         //Console.WriteLine("Synchronized");
+    }
+
+    
+    /// <summary>
+    /// Called upon receiving FSHashCheck
+    /// Checks if the files associated with provided FUUIDs have the same hashes as the hashes provided with FUUIDs
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="eventArgs"></param>
+    public void FileSyncHashCheck(object? sender, PacketEventArgs eventArgs)
+    {
+        var memoryStream = new MemoryStream(eventArgs.Packet.Payload, 0, eventArgs.Packet.MessageLength);
+        var fsHashCheck = Serializer.Deserialize<FSHashCheck>(memoryStream);
+        List<Guid> changedFiles = new List<Guid>();
+        foreach (var pair in fsHashCheck.HashCheckPairs)
+        {
+            var serverHash = BitConverter.ToUInt64(_rocksDb.Get(pair.FuuId.ToByteArray()));
+            if (serverHash != pair.Hash)
+            {
+                changedFiles.Add(pair.FuuId);
+            }
+        }
+
+        MemoryStream memoryStreamExport = new MemoryStream();
+        Serializer.Serialize(memoryStreamExport,new FSHashCheckResponse()
+        {
+            Changed = changedFiles
+        });
+        _socket.SendAsync(new Packet(memoryStreamExport.ToArray(), PacketType.FileSyncHashCheckResponse, (int)memoryStreamExport.Length).ToBytes());
     }
 }

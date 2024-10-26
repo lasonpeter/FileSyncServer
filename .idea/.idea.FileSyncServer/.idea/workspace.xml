@@ -11,7 +11,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="" />
+    <list default="true" id="f3dfe31e-0430-4bdf-9af8-49d5deb23ba3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FileSyncServer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/Settings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Config/Settings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,6 +29,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="file-identification" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -40,19 +49,12 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/573310d549a744bbbaa22bb2bf9adbadb2c800/01/b613cceb/EventHandler`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/37c1347d9c665a9c38de996b994b62177561c4c4515e4d49fdf93cd848fe49b/ProtoReader.State.ReadMethods.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/43279f3c9db25d281b7e4bfc0cab5914f3166d484eebf5aa99544168af812/ProtoReader.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bfeb23bd39eebb4af69aefaead03a3641afdb341aaf54af95e3891a62488/ProtoReader.Stream.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e5119dcdce44411eaf4b4915377339f627f0ecccdcccf54a273b28d928dcb/Serializer.Deserialize.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/FileSyncController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/48a5384bb36e47f0ac76fb9cb0c19d7e2a00/90/f1030c60/VersionHandshake.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/SFile.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/bin/Debug/net8.0/FileSyncServer.deps.json" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/config.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///home/xenu/RiderProjects/FileSyncServer/obj/Debug/net8.0/FileSyncServer.AssemblyInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/obj/Debug/net8.0/FileSyncServer.AssemblyInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../TransferLib/HashCheckPair.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/Packet.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../TransferLib/PacketType.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../TransferLib/ProtoBuf.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -68,20 +70,30 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;.NET Project.FileSyncServer.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Docker Image (1).executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Docker Image (2).executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Docker Image (3).executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Docker Image (4).executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Docker Image (5).executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Docker Image.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
     &quot;Publish to custom server.Server.executor&quot;: &quot;Run&quot;,
     &quot;Publish to custom server.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Shell Script.DOCKER PUBLISH.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;FolderScanning&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/xenu/RiderProjects/TransferLib/bin/Release/net8.0/TransferLib.dll&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;service.view.auto.scroll.to.source&quot;: &quot;true&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -180,23 +192,106 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="DOCKER PUBLISH" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="dotnet publish --os linux --arch x64 /t:PublishContainer" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="false" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="Docker Image (2)" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="sha256:363e19ead9d00224b0ad40e3fb9124b9f94ac104eb1aeaf0397fe3f566ebe063" />
+          <option name="containerName" value="" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="Docker Image (3)" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="filesyncserver:dev" />
+          <option name="containerName" value="" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="Docker Image (4)" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="filesyncserver:dev" />
+          <option name="containerName" value="" />
+          <option name="publishAllPorts" value="true" />
+          <option name="commandLineOptions" value="" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="Docker Image (5)" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="filesyncserver:dev" />
+          <option name="containerName" value="" />
+          <option name="publishAllPorts" value="true" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="Docker Image" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="filesyncserver:dev" />
+          <option name="containerName" value="" />
+          <option name="publishAllPorts" value="true" />
+          <option name="commandLineOptions" value="--network host" />
+          <option name="showCommandPreview" value="true" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
           <option name="imageTag" value="filesyncserver" />
           <option name="containerName" value="filesyncserver" />
-          <option name="contextFolderPath" value="$PROJECT_DIR$" />
+          <option name="envVars">
+            <list>
+              <DockerEnvVarImpl>
+                <option name="name" value="DOTNET_ENVIRONMENT" />
+                <option name="value" value="Production" />
+              </DockerEnvVarImpl>
+            </list>
+          </option>
+          <option name="publishAllPorts" value="true" />
+          <option name="commandLineOptions" value="--network host" />
           <option name="sourceFilePath" value="Dockerfile" />
         </settings>
       </deployment>
       <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
-      <method v="2" />
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="DOCKER PUBLISH" run_configuration_type="ShConfigurationType" />
+      </method>
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
       <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-image" temporary="true">
+      <deployment type="docker-image">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
@@ -223,8 +318,23 @@
       <item itemvalue=".NET Project.FileSyncServer" />
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       <item itemvalue="Docker.Dockerfile" />
+      <item itemvalue="Docker.Docker Image (4)" />
+      <item itemvalue="Docker.Docker Image (5)" />
+      <item itemvalue="Docker.Docker Image (3)" />
+      <item itemvalue="Docker.Docker Image (2)" />
+      <item itemvalue="Docker.Docker Image" />
       <item itemvalue="Publish to custom server.Server" />
+      <item itemvalue="Shell Script.DOCKER PUBLISH" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.Docker Image (5)" />
+        <item itemvalue="Docker.Docker Image (4)" />
+        <item itemvalue="Docker.Docker Image (3)" />
+        <item itemvalue="Docker.Docker Image" />
+        <item itemvalue="Docker.Docker Image (2)" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -271,6 +381,29 @@
       <workItem from="1722537909684" duration="3104000" />
       <workItem from="1722589386818" duration="2851000" />
       <workItem from="1723370774558" duration="8177000" />
+      <workItem from="1723387577688" duration="1143000" />
+      <workItem from="1723397953933" duration="3438000" />
+      <workItem from="1723482649734" duration="10786000" />
+      <workItem from="1723568818768" duration="360000" />
+      <workItem from="1723675361526" duration="1810000" />
+      <workItem from="1725103862836" duration="17418000" />
+      <workItem from="1725273804530" duration="1920000" />
+      <workItem from="1725280673863" duration="19657000" />
+      <workItem from="1725395398636" duration="5000000" />
+      <workItem from="1727857882536" duration="4049000" />
+      <workItem from="1727969567545" duration="2704000" />
+      <workItem from="1727998279514" duration="6901000" />
+      <workItem from="1728374048099" duration="2903000" />
+      <workItem from="1728377215550" duration="5711000" />
+      <workItem from="1729012322186" duration="12375000" />
+      <workItem from="1729162467418" duration="12428000" />
+      <workItem from="1729261641349" duration="84000" />
+      <workItem from="1729538373960" duration="4455000" />
+      <workItem from="1729779243987" duration="2299000" />
+      <workItem from="1729781707268" duration="7193000" />
+      <workItem from="1729884986415" duration="642000" />
+      <workItem from="1729942122850" duration="1492000" />
+      <workItem from="1729952117356" duration="2306000" />
     </task>
     <task id="LOCAL-00001" summary="Started creating PacketDistributor">
       <option name="closed" value="true" />
@@ -336,7 +469,63 @@
       <option name="project" value="LOCAL" />
       <updated>1723387488591</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.FileSyncServer/.idea/workspace.xml">
+      <option name="closed" value="true" />
+      <created>1723387634509</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1723387634509</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Non working FUUID transfer">
+      <option name="closed" value="true" />
+      <created>1723491807285</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1723491807285</updated>
+    </task>
+    <task id="LOCAL-00011" summary="byte[] to List&lt;byte&gt; fix">
+      <option name="closed" value="true" />
+      <created>1723492383718</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1723492383718</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Started implementing folder scanning when file exists">
+      <option name="closed" value="true" />
+      <created>1725305205163</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1725305205163</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Implemented logic for FileSyncHashCheck function">
+      <option name="closed" value="true" />
+      <created>1725393893950</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725393893950</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Project documentation">
+      <option name="closed" value="true" />
+      <created>1725520518876</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1725520518876</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Improved logging, and fixed Dockerfile">
+      <option name="closed" value="true" />
+      <created>1729788373444</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1729788373444</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,7 +538,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="FolderScanning" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -365,6 +566,13 @@
     <MESSAGE value="CI" />
     <MESSAGE value="Added .gitignore" />
     <MESSAGE value="README.md update" />
-    <option name="LAST_COMMIT_MESSAGE" value="README.md update" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.FileSyncServer/.idea/workspace.xml" />
+    <MESSAGE value="Non working FUUID transfer" />
+    <MESSAGE value="byte[] to List&lt;byte&gt; fix" />
+    <MESSAGE value="Started implementing folder scanning when file exists" />
+    <MESSAGE value="Implemented logic for FileSyncHashCheck function" />
+    <MESSAGE value="Project documentation" />
+    <MESSAGE value="Improved logging, and fixed Dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved logging, and fixed Dockerfile" />
   </component>
 </project>

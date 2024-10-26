@@ -11,10 +11,26 @@ internal class PacketDistributor
 {
     public event EventHandler<PacketEventArgs>? OnPing;
     public event EventHandler<PacketEventArgs>? OnData;
+    /// <summary>
+    /// Occurs when the FSInit packet is received
+    /// </summary>
     public event EventHandler<PacketEventArgs>? OnFileSyncInit;
+    /// <summary>
+    /// Occurs when the FSData packet is received
+    /// </summary>
     public event EventHandler<PacketEventArgs>? OnFileSyncData;
-    public event EventHandler<PacketEventArgs>? OnFileSyncCheckHash;
+    /// <summary>
+    /// Occurs when the FSUploadCheckHash packet is received 
+    /// </summary>
+    public event EventHandler<PacketEventArgs>? OnFileSyncUploadCheckHash;
+    /// <summary>
+    /// Occurs when the FSFinish packet is received 
+    /// </summary>
     public event EventHandler<PacketEventArgs>? OnFileSyncFinish;
+    /// <summary>
+    /// Occurs when the FSHashCheck packet is received
+    /// </summary>
+    public event EventHandler<PacketEventArgs>? OnFileSyncHashCheck;
 
     private Socket _socket;
 
@@ -23,6 +39,9 @@ internal class PacketDistributor
         _socket = socket;
     }
 
+    /// <summary>
+    /// Indefinitely waits for a packet from the client 
+    /// </summary>
     public void AwaitPacket()
     {
         new Thread(o =>
@@ -56,7 +75,8 @@ internal class PacketDistributor
                 packet.DecodePacket(buffer);
                 if (packet.PacketType is PacketType.Error)
                 {
-                    Console.WriteLine("CONNECTION LOST !!!!!!!!!!!!!");
+                    Console.WriteLine("CONNECTION LOST !!!!!!!!!!!!!"); 
+                    break;
                 }
 
                 //Console.WriteLine("PacketType:"+packet.PacketType);
@@ -80,7 +100,7 @@ internal class PacketDistributor
                         //Console.WriteLine("DATA");
                     }
                         break;
-                    case PacketType.FileSyncCheckHash:
+                    case PacketType.FileSyncUploadCheckHash:
                         OnFileSyncCheckHashPacket(new PacketEventArgs(packet));
                         break;
                     case PacketType.FileSyncFinish:
@@ -88,11 +108,20 @@ internal class PacketDistributor
                         OnFileSyncFinishPacket(new PacketEventArgs(packet));
                     }
                         break;
+                    case PacketType.FileSyncHashCheck:
+                    {
+                        OnFileSyncHashCheckPacket(new PacketEventArgs(packet));
+                    }
+                        break;
                 }
             }
         }).Start();
     }
 
+    /// <summary>
+    /// Performs the version handshake
+    /// </summary>
+    /// <exception cref="Exception">Throws exception if the version is incompatible</exception>
     public void VersionHandshake()
     {
         var packet = new Packet();
@@ -105,16 +134,8 @@ internal class PacketDistributor
             try
             {
                 int recv = _socket.Receive(buffer, total, dataLeft, SocketFlags.None);
-                //Console.WriteLine(recv);
-
-                /*if (recv == 0)
-                {
-                    break;
-                }*/
-
                 total += recv;
                 dataLeft -= recv;
-                //Console.WriteLine(total);}
             }
             catch (Exception e)
             {
@@ -123,8 +144,8 @@ internal class PacketDistributor
                 Log.Warning("Client abruptly disconnected ");
                 break;
             }
-        }
-Console.WriteLine("RECEIVED HANDSHAKE");
+        } 
+        Console.WriteLine("RECEIVED HANDSHAKE");
         try
         {
             packet.DecodePacket(buffer);
@@ -219,7 +240,7 @@ Console.WriteLine("RECEIVED HANDSHAKE");
 
     protected virtual void OnFileSyncCheckHashPacket(PacketEventArgs e)
     {
-        var raiseEvent = OnFileSyncCheckHash;
+        var raiseEvent = OnFileSyncUploadCheckHash;
 
         if (raiseEvent != null) raiseEvent.Invoke(this, e);
     }
@@ -227,6 +248,11 @@ Console.WriteLine("RECEIVED HANDSHAKE");
     protected virtual void OnFileSyncFinishPacket(PacketEventArgs e)
     {
         var raiseEvent = OnFileSyncFinish;
+        if (raiseEvent != null) raiseEvent.Invoke(this, e);
+    }
+    protected virtual void OnFileSyncHashCheckPacket(PacketEventArgs e)
+    {
+        var raiseEvent = OnFileSyncHashCheck;
         if (raiseEvent != null) raiseEvent.Invoke(this, e);
     }
 }

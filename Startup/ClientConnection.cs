@@ -27,8 +27,9 @@ public class ClientConnection
         var fileSyncController = new FileSyncController(client,_rocksDb);
         packetDistributor.OnFileSyncInit += fileSyncController.FileSyncInit;
         packetDistributor.OnFileSyncData += fileSyncController.FileSyncData;
-        packetDistributor.OnFileSyncCheckHash += fileSyncController.FileSyncCheckHash;
+        packetDistributor.OnFileSyncUploadCheckHash += fileSyncController.FileSyncUploadCheckHash;
         packetDistributor.OnFileSyncFinish += fileSyncController.FileSyncFinish;
+        packetDistributor.OnFileSyncHashCheck += fileSyncController.FileSyncHashCheck;
         try
         {
             packetDistributor.VersionHandshake();

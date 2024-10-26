@@ -12,7 +12,7 @@ namespace FileSyncServer;
 public class SFile
 {
     private FileStream _fileStream;
-    private readonly FSInit _fsInit;
+    private readonly FsInit _fsInit;
     private RocksDb _rocksDb;
     private readonly Socket _socket;
 
@@ -20,7 +20,7 @@ public class SFile
     {
         return _fsInit.FilePath + "/" + _fsInit.FileName;
     }
-    public SFile(Socket socket, FSInit fsInit, RocksDb rocksDb)
+    public SFile(Socket socket, FsInit fsInit, RocksDb rocksDb)
     {
         _rocksDb = rocksDb;
         _socket = socket;
@@ -30,7 +30,9 @@ public class SFile
     public void FileSyncInit()
     { 
         //TODO: Settings.Instance.WorkingDirectory + _fsInit.FilePath may create error if FilePath is going to be relative in the future !
-        
+
+        Console.WriteLine();
+        Console.WriteLine($"WORKING ON FUUID: {_fsInit.FuuId.ToString()}");
         Directory.CreateDirectory(Settings.Instance.WorkingDirectory + _fsInit.FilePath);
         _fileStream = new FileStream($"{Settings.Instance.WorkingDirectory}{_fsInit.FilePath}/{_fsInit.FileName}",
             new FileStreamOptions
@@ -39,6 +41,27 @@ public class SFile
                 Access = FileAccess.ReadWrite,
                 PreallocationSize = _fsInit.FileSize
             });
+        try
+        {
+            byte[] arr = new byte[_fsInit.FuuId.ToByteArray().Length + 1];
+            arr[0] = 0;
+            if (!_rocksDb.HasKey(_fsInit.FuuId.ToByteArray()))
+            {
+                _fsInit.FuuId.ToByteArray().CopyTo(arr, 1);
+                Console.WriteLine($"CREATING NEW FILE WITH FUUID:{_fsInit.FuuId.ToString()}");
+                _rocksDb.Put(_fsInit.FuuId.ToByteArray(), BitConverter.GetBytes((ulong)0));
+            }
+            _rocksDb.Put(arr, Encoding.UTF8.GetBytes( $"{_fsInit.FilePath}/{_fsInit.FileName}"));
+            var serverHash =_rocksDb.Get(_fsInit.FuuId.ToByteArray()); //THE HECK IS THIS ??? (ok this points out to the file hash on server side
+            Console.WriteLine($"Hash of file with FUUID:" + 
+                              $" {_fsInit.FuuId.ToString()}"+
+                              $" is: {BitConverter.ToUInt64(serverHash)}");
+        }
+        catch (Exception e) 
+        {
+            Console.WriteLine(e);
+            throw;
+        }
         Console.WriteLine($"{Settings.Instance.WorkingDirectory}{_fsInit.FilePath}/{_fsInit.FileName}");
         _rocksDb.Put(new Guid().ToByteArray(), Encoding.UTF8.GetBytes(_fsInit.FilePath+"/"+_fsInit.FileName));
         var fsInitResponse = new FSInitResponse
@@ -71,7 +94,7 @@ public class SFile
         }
     }
 
-    public void CheckHash(FSCheckHash _fsFile)
+    public void CheckHash(FSUploadCheckHash _fsFile)
     {
         Console.WriteLine("CHECK");
         _fileStream.Flush();
@@ -84,7 +107,7 @@ public class SFile
         }
         if (_fsFile.Hash == hash64)
         {
-            Serializer.Serialize(memoryStream, new FSCheckHashResponse
+            Serializer.Serialize(memoryStream, new FSUploadCheckHashResponse()
             {
                 FileId = _fsFile.FileId,
                 IsCorrect = true
@@ -92,14 +115,14 @@ public class SFile
         }
         else
         {
-            Serializer.Serialize(memoryStream, new FSCheckHashResponse
+            Serializer.Serialize(memoryStream, new FSUploadCheckHashResponse
             {
                 FileId = _fsFile.FileId,
                 IsCorrect = false
             });
         }
         lock(_socket){
-            _socket.Send(new Packet(memoryStream.ToArray(), PacketType.FileSyncCheckHashResponse,
+            _socket.Send(new Packet(memoryStream.ToArray(), PacketType.FileSyncUploadCheckHashResponse,
                     (int)memoryStream.Length)
                 .ToBytes());
         }
