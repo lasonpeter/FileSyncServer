@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>File Sync (FS) protocol overview - My Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "File Sync (FS) protocol overview";
+        var mkdocs_page_input_path = "Protocol.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> My Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">File Sync</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Config/">FileSync configuration</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">File Sync (FS) protocol overview</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#general-structure">General structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example-client-server-file-sync">Example client -&gt; server file sync</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example-server-client-file-sync">Example server -&gt; client file sync</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">My Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">File Sync (FS) protocol overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="file-sync-fs-protocol-overview">File Sync (FS) protocol overview</h1>
+<p>FS uses TCP/IP sockets to communicate on <em>client</em> to <em>server</em> basis.
+Entire synchronization relies on a server having a sufficient amount of memory to save all synced files.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>READ THIS:
+For the love of god, in current state don't use this with files that are of great security: ID card images(don't do it in general), banking records, those neat Lockheed Martin classified documents, or other files that may impose any kind of damage if exposed to the public</p>
+</div>
+<div class="admonition information">
+<p class="admonition-title">Information</p>
+<p>This protocol will change IMMENSELY to support a structure with layers like:
+authentication layer, data transport layer, encryption and such</p>
+</div>
+<ul>
+<li>On the fly stream compression</li>
+<li>Optimize RAM, CPU &amp; IO usage</li>
+<li>Encryption</li>
+<li>API for the service</li>
+<li>Rewrite everything in Rust or C++ (because why not)</li>
+</ul>
+<hr />
+<h2 id="general-structure">General structure</h2>
+<div class="admonition information">
+<p class="admonition-title">Information</p>
+<p>Due to UNIX/POSIX something-IX not allowing to change <code>birth time</code> there will be no support for maintaining the <em>right</em> file creation time anywhere else than the host system that first created the file. 
+P.S. It's possible that this would work while using Windows/(anti FOSS stack) as the code for doing that exists, but I couldn't care less to test it</p>
+</div>
+<p>Protocol takes advantage of using <em>packets</em> to send chunks of data between user and server.
+As of writing this, packet's max size is <code>4096 bytes</code></p>
+<h2 id="example-client-server-file-sync">Example client -&gt; server file sync</h2>
+<div class="admonition information">
+<p class="admonition-title">Information</p>
+<p>This example assumes everything goes <em>as planned</em>, whole file sync procedure will be called a <em>session</em></p>
+</div>
+<ul>
+<li>File change is made on <em>client</em></li>
+<li><em>Client</em> waits <code>x</code> amount of seconds</li>
+<li><em>Client</em> sends <code>FileSyncInit</code> packet with respective data</li>
+<li><em>Server</em> receives <code>FileSyncInit</code> packet, assesses if conditions are meet and sends <code>`FileSyncInitResponse</code> packet</li>
+<li><em>Client</em> starts uploading the file chunks in <code>FileSyncData</code> packets until it sends all the file</li>
+<li><em>Client</em> sends <code>FileSyncCheckHash</code> with <code>XXHash3</code> hash of local file</li>
+<li><em>Server</em> receives <code>FileSyncCheckHash</code> and checks <code>XXHash3</code> hash of uploaded file and sends <code>FileSyncCheckHashResponse</code></li>
+<li><em>Client</em> receives <code>FileSyncCheckHashResponse</code> and sends <code>FileSyncFinish</code> to imply that <em>client</em> received the hash response and can close the <em>session</em></li>
+</ul>
+<h2 id="example-server-client-file-sync">Example server -&gt; client file sync</h2>
+<div class="admonition information">
+<p class="admonition-title">Information</p>
+<p>This example assumes everything goes <em>as planned</em>, whole file sync procedure will be called a <em>session</em></p>
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Config/" class="btn btn-neutral float-left" title="FileSync configuration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Config/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
